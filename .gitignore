@@ -1,0 +1,66 @@
+bin/
+obj/
+out/
+
+.vs/
+
+# Arquivos de usuário do Visual Studio
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs e relatórios
+*.log
+*.tlog
+*.vspscc
+*.vssscc
+
+# Arquivos de pacotes NuGet
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Arquivos de cache
+*.cache
+*.pdb
+*.mdb
+
+# Configurações locais
+appsettings.Development.json
+appsettings.Local.json
+
+# Arquivos gerados pelo sistema
+*.dbmdl
+*.jfm
+*.class
+*.csproj.user
+*.csproj.nuget.g.props
+*.csproj.nuget.g.targets
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Arquivos de publicação
+publish/
+wwwroot/
+
+# Arquivos de teste
+TestResults/
+*.trx
+*.coverage
+
+# Arquivos de IDEs
+.idea/
+.vscode/
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
