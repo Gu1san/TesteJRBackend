@@ -1,39 +1,72 @@
-## INSTRUÇÕES PARA O TESTE TÉCNICO
+# 📋 Desafio API - ToDo List
 
-- Crie um fork deste projeto (https://github.com/CAPYS-IT/TesteJRBackend).
-  É preciso estar logado na sua conta Github;
-- Quando você começar, faça um commit vazio com a mensagem "Iniciando o teste de tecnologia" e quando terminar, faça o commit com uma mensagem "Finalizado o teste de tecnologia";
-- Commit após cada ciclo de refatoração pelo menos;
-- Não use branches;
-- Você deve prover evidências suficientes de que sua solução está completa indicando, no mínimo, que ela funciona;
-- Não há restrição quanto ao uso de bibliotecas de apoio;
-- No final envie para o RH o link do seu projeto.
-- Uso do Visual Studio 2022
-
-## O TESTE
-
-- Implementar o metodo lstTarefas da classe Tarefas na Tarefascontroller/lstTarefas e retorna a lista de tarefas. **CODE** 200.
-- Implementar o metodo InserirTarefa da classe Tarefas na Tarefascontroller/InserirTarefas e retorna a lista de tarefas. **CODE** 200.
-- Implementar o metodo DeletarTarefa da classe Tarefas na Tarefascontroller/DeleteTask e retorna a lista de tarefas. **CODE** 200.
+Este projeto é uma API de lista de tarefas (**ToDo List**) desenvolvida em **.NET**.  
+A API permite listar, adicionar, atualizar e remover tarefas de uma lista em memória.
 
 ---
 
-- Descreva oque esta acontecendo com comentarios em cada linha de codigo do metodo DeletarTarefa da classe Tarefas.
+## 🚀 Como executar
 
-- Faça o tratamento de erro do metodo DeletarTarefa da classe Tarefas. <br/> Parametros:
-- O usuario esta tentando deletar a tarefa de codigo 1458.
+1. **Clone o repositório**:
+```bash
+   git clone https://github.com/seu-usuario/api-todolist.git
+```
+2. **Abra o projeto no Visual Studio 2022** (ou mais recente).
+
+3. **Restaure os pacotes**:
+
+   dotnet restore
+
+4. **Execute a aplicação**:
+```bash
+   dotnet run
+```
+---
+
+## 🛠️ Tecnologias utilizadas
+
+- .NET 5
+- ASP.NET Core Web API
+- Swagger (Swashbuckle)
 
 ---
 
-## BÔNUS
+## 📚 Funcionalidades da API
 
-- Efetuar tratamento das classes e Controllers com boas praticas seguindo os padrões REST.
-- Criar Metodo de Atualizar um item da lista, passando uma objeto e retornando a lista atualizada.
-- Criar metodo para pegar um Item da Lista passando um ID e retornando o Objeto da Lista.
+- Get: Lista todas as tarefas cadastradas.
+
+https://github.com/user-attachments/assets/b3529612-50eb-4225-a631-5a77709f75a1
+
+- Post: Insere uma nova tarefa.
+
+https://github.com/user-attachments/assets/daf51dae-da45-4da2-988a-44ed8d1f697a
+
+https://github.com/user-attachments/assets/d35145e9-662e-44da-8e83-fb6c9a04ef89
+
+- Delete: Deleta uma tarefa específica pelo ID.
+
+https://github.com/user-attachments/assets/78b4db85-be97-4310-b114-dfab063a6560
+
+- Put: Atualiza a descrição de uma tarefa
+
+https://github.com/user-attachments/assets/73320c92-e680-464c-b4a6-e3aebcdaaa89
 
 ---
 
-## PONTOS QUE SERÃO AVALIADOS
+## 🧩 Estrutura básica
 
-- Boas práticas;
-- Estrutura de Codigo.
+### DTO
+
+A classe `TaskDTO` representa o modelo de dados da tarefa, com os seguintes atributos:
+
+- `int ID_TASK`
+- `string DS_TASK`
+
+### Model
+
+A classe `Tasks` é responsável por gerenciar a lista de tarefas em memória, com métodos para:
+
+- Buscar todas as tarefas
+- Criar uma tarefa
+- Atualizar uma tarefa
+- Deletar uma tarefa
