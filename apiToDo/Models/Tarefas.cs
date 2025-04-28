@@ -19,53 +19,46 @@ namespace apiToDo.Models
             return _tarefas;
         }
 
-        public void InserirTarefa(TarefaDTO request)
+        public List<TarefaDTO> InserirTarefa(TarefaDTO request)
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
 
             _tarefas.Add(request);
+            return _tarefas;
         }
 
-        public void DeletarTarefa(int idTarefa)
+        public List<TarefaDTO> DeletarTarefa(int idTarefa)
         {
-            try
-            {
-                // Busca a tarefa pelo ID
-                var tarefa = _tarefas.FirstOrDefault(x => x.ID_TAREFA == idTarefa);
+            //Busca a tarefa pelo ID
+            var tarefa = BuscarTarefaPorId(idTarefa);
 
-                // Verifica se encontrou
-                if (tarefa == null)
-                    throw new KeyNotFoundException($"Tarefa com ID {idTarefa} não encontrada.");
-
-                // Remove a tarefa encontrada
-                _tarefas.Remove(tarefa);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Erro ao deletar tarefa: {ex.Message}", ex);
-            }
+            //Remove a tarefa da lista e retorna a lista atualizada
+            _tarefas.Remove(tarefa);
+            return _tarefas;
         }
 
-        public void AtualizarTarefa(TarefaDTO request)
+        public List<TarefaDTO> AtualizarTarefa(TarefaDTO request)
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            var tarefa = _tarefas.FirstOrDefault(x => x.ID_TAREFA == request.ID_TAREFA);
-
+            var tarefa = _tarefas.FirstOrDefault(t => t.ID_TAREFA == request.ID_TAREFA);
             if (tarefa == null)
-                throw new KeyNotFoundException($"Tarefa com ID {request.ID_TAREFA} não encontrada.");
+                throw new Exception($"Tarefa com ID {request.ID_TAREFA} não encontrada.");
 
             tarefa.DS_TAREFA = request.DS_TAREFA;
+            return _tarefas;
         }
 
         public TarefaDTO BuscarTarefaPorId(int idTarefa)
         {
-            var tarefa = _tarefas.FirstOrDefault(x => x.ID_TAREFA == idTarefa);
+            //Verifica se o ID da tarefa é válido
+            var tarefa = _tarefas.FirstOrDefault(t => t.ID_TAREFA == idTarefa);
 
+            //Se a tarefa não for encontrada, lança uma exceção
             if (tarefa == null)
-                throw new KeyNotFoundException($"Tarefa com ID {idTarefa} não encontrada.");
+                throw new Exception($"Tarefa com ID {idTarefa} não encontrada.");
 
             return tarefa;
         }
