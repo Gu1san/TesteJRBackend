@@ -1,4 +1,5 @@
 ﻿using apiToDo.DTO;
+using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,9 @@ namespace apiToDo.Models
 
             if (string.IsNullOrEmpty(request.DS_TASK))
                 throw new ArgumentException("A descrição da tarefa não pode ser vazia.");
+
+            if(SearchTaskById(request.ID_TASK) != null)
+                throw new ArgumentException($"A tarefa com ID {request.ID_TASK} já existe.");
 
             _tasks.Add(request);
             return _tasks;
