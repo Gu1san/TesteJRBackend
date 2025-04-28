@@ -7,64 +7,67 @@ namespace apiToDo.Models
 {
     public class Tarefas
     {
-        public List<TarefaDTO> lstTarefas()
+        private static List<TarefaDTO> _tarefas = new()
+        {
+            new() { ID_TAREFA = 1, DS_TAREFA = "Fazer Compras" },
+            new() { ID_TAREFA = 2, DS_TAREFA = "Fazer Atividade Faculdade" },
+            new() { ID_TAREFA = 3, DS_TAREFA = "Subir Projeto de Teste no GitHub" }
+        };
+
+        public List<TarefaDTO> LstTarefas()
+        {
+            return _tarefas;
+        }
+
+        public void InserirTarefa(TarefaDTO request)
+        {
+            if (request == null)
+                throw new ArgumentNullException(nameof(request));
+
+            _tarefas.Add(request);
+        }
+
+        public void DeletarTarefa(int idTarefa)
         {
             try
             {
-                List<TarefaDTO> lstTarefas = new List<TarefaDTO>();
+                // Busca a tarefa pelo ID
+                var tarefa = _tarefas.FirstOrDefault(x => x.ID_TAREFA == idTarefa);
 
-                lstTarefas.Add(new TarefaDTO
-                {
-                    ID_TAREFA = 1,
-                    DS_TAREFA = "Fazer Compras"
-                });
+                // Verifica se encontrou
+                if (tarefa == null)
+                    throw new KeyNotFoundException($"Tarefa com ID {idTarefa} não encontrada.");
 
-                lstTarefas.Add(new TarefaDTO
-                {
-                    ID_TAREFA = 2,
-                    DS_TAREFA = "Fazer Atividad Faculdade"
-                });
-
-                lstTarefas.Add(new TarefaDTO
-                {
-                    ID_TAREFA = 3,
-                    DS_TAREFA = "Subir Projeto de Teste no GitHub"
-                });
-
-                return new List<TarefaDTO>();
+                // Remove a tarefa encontrada
+                _tarefas.Remove(tarefa);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw ex;
+                throw new Exception($"Erro ao deletar tarefa: {ex.Message}", ex);
             }
         }
 
+        public void AtualizarTarefa(TarefaDTO request)
+        {
+            if (request == null)
+                throw new ArgumentNullException(nameof(request));
 
-        public void InserirTarefa(TarefaDTO Request)
-        {
-            try
-            {
-                List<TarefaDTO> lstResponse = lstTarefas();
-                lstResponse.Add(Request);
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
+            var tarefa = _tarefas.FirstOrDefault(x => x.ID_TAREFA == request.ID_TAREFA);
+
+            if (tarefa == null)
+                throw new KeyNotFoundException($"Tarefa com ID {request.ID_TAREFA} não encontrada.");
+
+            tarefa.DS_TAREFA = request.DS_TAREFA;
         }
-        public void DeletarTarefa(int ID_TAREFA)
+
+        public TarefaDTO BuscarTarefaPorId(int idTarefa)
         {
-            try
-            {
-                List<TarefaDTO> lstResponse = lstTarefas();
-                var Tarefa = lstResponse.FirstOrDefault(x => x.ID_TAREFA == ID_TAREFA);
-                TarefaDTO Tarefa2 = lstResponse.Where(x=> x.ID_TAREFA == Tarefa.ID_TAREFA).FirstOrDefault();
-                lstResponse.Remove(Tarefa2);
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
+            var tarefa = _tarefas.FirstOrDefault(x => x.ID_TAREFA == idTarefa);
+
+            if (tarefa == null)
+                throw new KeyNotFoundException($"Tarefa com ID {idTarefa} não encontrada.");
+
+            return tarefa;
         }
     }
 }

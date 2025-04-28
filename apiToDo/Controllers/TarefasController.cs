@@ -3,6 +3,7 @@ using apiToDo.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 
 namespace apiToDo.Controllers
 {
@@ -10,51 +11,56 @@ namespace apiToDo.Controllers
     [Route("[controller]")]
     public class TarefasController : ControllerBase
     {
+        // Instância da classe Tarefas
+        private readonly Tarefas _tarefas;
+
+        public TarefasController()
+        {
+            _tarefas = new Tarefas();
+        }
+
         [Authorize]
-        [HttpPost("lstTarefas")]
-        public ActionResult lstTarefas()
+        [HttpPost("LstTarefas")]
+        public ActionResult<List<TarefaDTO>> LstTarefas()
         {
             try
             {
-              
-                return StatusCode(200);
+                var lista = _tarefas.LstTarefas();
+                return Ok(lista);
             }
-
             catch (Exception ex)
             {
-                return StatusCode(400, new { msg = $"Ocorreu um erro em sua API {ex.Message}"});
+                return BadRequest(new { msg = $"Ocorreu um erro em sua API: {ex.Message}" });
             }
         }
 
         [HttpPost("InserirTarefas")]
-        public ActionResult InserirTarefas([FromBody] TarefaDTO Request)
+        public ActionResult<List<TarefaDTO>> InserirTarefas([FromBody] TarefaDTO request)
         {
             try
             {
-
-                return StatusCode(200);
-
-
+                _tarefas.InserirTarefa(request);
+                var lista = _tarefas.LstTarefas();
+                return Ok(lista);
             }
-
             catch (Exception ex)
             {
-                return StatusCode(400, new { msg = $"Ocorreu um erro em sua API {ex.Message}" });
+                return BadRequest(new { msg = $"Ocorreu um erro em sua API: {ex.Message}" });
             }
         }
 
         [HttpGet("DeletarTarefa")]
-        public ActionResult DeleteTask([FromQuery] int ID_TAREFA)
+        public ActionResult<List<TarefaDTO>> DeleteTask([FromQuery] int ID_TAREFA)
         {
             try
             {
-
-                return StatusCode(200);
+                _tarefas.DeletarTarefa(ID_TAREFA);
+                var lista = _tarefas.LstTarefas();
+                return Ok(lista);
             }
-
             catch (Exception ex)
             {
-                return StatusCode(400, new { msg = $"Ocorreu um erro em sua API {ex.Message}" });
+                return BadRequest(new { msg = $"Ocorreu um erro em sua API: {ex.Message}" });
             }
         }
     }
