@@ -1,66 +1,61 @@
+# Ignore arquivos de build
 bin/
 obj/
-out/
 
-.vs/
+# Ignore pacotes NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+packages/
+*.symbols.nupkg
 
-# Arquivos de usuário do Visual Studio
+# Ignore configurações de usuário do Visual Studio
+.vscode/
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
 
-# Logs e relatórios
+# Ignore arquivos de log
 *.log
-*.tlog
-*.vspscc
-*.vssscc
 
-# Arquivos de pacotes NuGet
-*.nupkg
-*.snupkg
-packages/
-project.lock.json
-project.fragment.lock.json
-artifacts/
-
-# Arquivos de cache
-*.cache
-*.pdb
-*.mdb
-
-# Configurações locais
-appsettings.Development.json
-appsettings.Local.json
-
-# Arquivos gerados pelo sistema
-*.dbmdl
-*.jfm
-*.class
-*.csproj.user
-*.csproj.nuget.g.props
-*.csproj.nuget.g.targets
-
-# Arquivos temporários
+# Ignore arquivos temporários
 *.tmp
 *.temp
-*.bak
-*.swp
 
-# Arquivos de publicação
+# Ignore publicações
 publish/
-wwwroot/
 
-# Arquivos de teste
-TestResults/
-*.trx
-*.coverage
+# Ignore arquivos de dependência local
+*.deps.json
 
-# Arquivos de IDEs
+# Ignore diretórios do Visual Studio
+.vs/
 .idea/
-.vscode/
 
-# Arquivos de sistema operacional
-.DS_Store
-Thumbs.db
-desktop.ini
+# Ignore configurações de Rider
+.idea/
+
+# Ignore cache de ferramentas
+_Tool/
+project.lock.json
+project.fragment.lock.json
+
+# Ignore build de debug e release
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+ARM/
+ARM64/
+
+# Ignore artefatos de testes
+TestResults/
+*.coverage
+*.coveragexml
+
+# Ignore arquivos de backup
+*.bak
+
+# Ignore Configurações do Azure
+.ssm/
