@@ -49,9 +49,7 @@ namespace apiToDo.Models
             if (string.IsNullOrEmpty(request.DS_TASK))
                 throw new ArgumentException("A descrição da tarefa não pode ser vazia.");
 
-            var tarefa = _tasks.FirstOrDefault(t => t.ID_TASK == request.ID_TASK);
-            if (tarefa == null)
-                throw new Exception($"Task com ID {request.ID_TASK} não encontrada.");
+            var tarefa = SearchTaskById(request.ID_TASK);
 
             tarefa.DS_TASK = request.DS_TASK;
             return _tasks;
