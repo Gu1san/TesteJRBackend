@@ -20,7 +20,6 @@ namespace apiToDo.Controllers
         }
 
         // Rota para listar todas as tarefas
-        [Authorize]
         [HttpGet("tarefas")]
         public ActionResult<List<TaskDTO>> GetTasks()
         {
