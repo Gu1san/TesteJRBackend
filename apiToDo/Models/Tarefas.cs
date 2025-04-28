@@ -5,60 +5,66 @@ using System.Linq;
 
 namespace apiToDo.Models
 {
-    public class Tarefas
+    public class Tasks
     {
-        private static List<TarefaDTO> _tarefas = new()
+        private static List<TaskDTO> _tasks = new()
         {
-            new() { ID_TAREFA = 1, DS_TAREFA = "Fazer Compras" },
-            new() { ID_TAREFA = 2, DS_TAREFA = "Fazer Atividade Faculdade" },
-            new() { ID_TAREFA = 3, DS_TAREFA = "Subir Projeto de Teste no GitHub" }
+            new() { ID_TASK = 1, DS_TASK = "Fazer Compras" },
+            new() { ID_TASK = 2, DS_TASK = "Fazer Atividade Faculdade" },
+            new() { ID_TASK = 3, DS_TASK = "Subir Projeto de Teste no GitHub" }
         };
 
-        public List<TarefaDTO> LstTarefas()
+        public List<TaskDTO> GetTasks()
         {
-            return _tarefas;
+            return _tasks;
         }
 
-        public List<TarefaDTO> InserirTarefa(TarefaDTO request)
+        public List<TaskDTO> CreateTask(TaskDTO request)
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            _tarefas.Add(request);
-            return _tarefas;
+            if (string.IsNullOrEmpty(request.DS_TASK))
+                throw new ArgumentException("A descrição da tarefa não pode ser vazia.");
+
+            _tasks.Add(request);
+            return _tasks;
         }
 
-        public List<TarefaDTO> DeletarTarefa(int idTarefa)
+        public List<TaskDTO> DeleteTask(int idTask)
         {
-            //Busca a tarefa pelo ID
-            var tarefa = BuscarTarefaPorId(idTarefa);
+            // Busca a tarefa pelo ID
+            var tarefa = SearchTaskById(idTask);
 
-            //Remove a tarefa da lista e retorna a lista atualizada
-            _tarefas.Remove(tarefa);
-            return _tarefas;
+            // Remove a tarefa da lista e retorna a lista atualizada
+            _tasks.Remove(tarefa);
+            return _tasks;
         }
 
-        public List<TarefaDTO> AtualizarTarefa(TarefaDTO request)
+        public List<TaskDTO> UpdateTask(TaskDTO request)
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
 
-            var tarefa = _tarefas.FirstOrDefault(t => t.ID_TAREFA == request.ID_TAREFA);
-            if (tarefa == null)
-                throw new Exception($"Tarefa com ID {request.ID_TAREFA} não encontrada.");
+            if (string.IsNullOrEmpty(request.DS_TASK))
+                throw new ArgumentException("A descrição da tarefa não pode ser vazia.");
 
-            tarefa.DS_TAREFA = request.DS_TAREFA;
-            return _tarefas;
+            var tarefa = _tasks.FirstOrDefault(t => t.ID_TASK == request.ID_TASK);
+            if (tarefa == null)
+                throw new Exception($"Task com ID {request.ID_TASK} não encontrada.");
+
+            tarefa.DS_TASK = request.DS_TASK;
+            return _tasks;
         }
 
-        public TarefaDTO BuscarTarefaPorId(int idTarefa)
+        public TaskDTO SearchTaskById(int idTask)
         {
-            //Verifica se o ID da tarefa é válido
-            var tarefa = _tarefas.FirstOrDefault(t => t.ID_TAREFA == idTarefa);
+            // Verifica se o ID da tarefa é válido
+            var tarefa = _tasks.FirstOrDefault(t => t.ID_TASK == idTask);
 
-            //Se a tarefa não for encontrada, lança uma exceção
+            // Se a tarefa não for encontrada, lança uma exceção
             if (tarefa == null)
-                throw new Exception($"Tarefa com ID {idTarefa} não encontrada.");
+                throw new Exception($"Task com ID {idTask} não encontrada.");
 
             return tarefa;
         }

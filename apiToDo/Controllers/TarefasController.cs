@@ -21,7 +21,7 @@ namespace apiToDo.Controllers
 
         [Authorize]
         [HttpPost("LstTarefas")]
-        public ActionResult<List<TarefaDTO>> LstTarefas()
+        public ActionResult<List<TaskDTO>> LstTarefas()
         {
             try
             {
@@ -35,7 +35,7 @@ namespace apiToDo.Controllers
         }
 
         [HttpPost("InserirTarefas")]
-        public ActionResult<List<TarefaDTO>> InserirTarefas([FromBody] TarefaDTO request)
+        public ActionResult<List<TaskDTO>> InserirTarefas([FromBody] TaskDTO request)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace apiToDo.Controllers
         }
 
         [HttpGet("DeletarTarefa")]
-        public ActionResult<List<TarefaDTO>> DeleteTask([FromQuery] int ID_TAREFA)
+        public ActionResult<List<TaskDTO>> DeleteTask([FromQuery] int ID_TAREFA)
         {
             try
             {
